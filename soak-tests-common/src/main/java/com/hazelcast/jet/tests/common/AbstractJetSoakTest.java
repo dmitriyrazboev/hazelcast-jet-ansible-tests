@@ -22,12 +22,12 @@ import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.logging.ILogger;
-import org.apache.log4j.MDC;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.hazelcast.jet.tests.common.Util.parseArguments;
+import static com.hazelcast.jet.tests.common.Util.setTestName;
 import static com.hazelcast.jet.tests.common.Util.sleepSeconds;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -65,8 +65,8 @@ public abstract class AbstractJetSoakTest extends AbstractSoakTestBase {
 
     @Override
     protected final void run(String[] args) throws Exception {
-        MDC.put("test-name", getClass().getSimpleName());
         parseArguments(args);
+        setTestName();
 
         HazelcastInstance[] instances = null;
         if (isRunLocal()) {

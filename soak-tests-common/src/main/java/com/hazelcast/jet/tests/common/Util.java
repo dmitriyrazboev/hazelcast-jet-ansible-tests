@@ -20,6 +20,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.internal.util.UuidUtil;
 import com.hazelcast.jet.Job;
 import com.hazelcast.jet.core.JobStatus;
+import org.apache.log4j.MDC;
 
 import java.time.Duration;
 import java.util.AbstractMap;
@@ -102,6 +103,13 @@ public final class Util {
                 throw new IllegalArgumentException(arg);
             }
             System.setProperty(split[0], split[1]);
+        }
+    }
+
+    public static void setTestName() {
+        String testName = System.getProperty("test-name");
+        if (testName != null) {
+            MDC.put("test-name", testName);
         }
     }
 
